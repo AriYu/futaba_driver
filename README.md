@@ -3,6 +3,12 @@
 双葉のコマンド方式サーボをRSC-U485を使ってUbuntu14.04で動かす。
 
 ```bash
+$ mkdir build & cd build
+$ cmake ..
+$ make
+```
+
+```bash
 $ sudo modprobe ftdi-sio
 $ sudo echo "1115 0008" > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
 $ sudo chmod +x /dev/ttyUSB0
