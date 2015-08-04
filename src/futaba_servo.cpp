@@ -8,6 +8,7 @@
 #include <fcntl.h>
 
 #include <iostream>
+#include <cmath>
 
 class FutabaDriver
 {
@@ -22,7 +23,7 @@ public:
   ~FutabaDriver()
   {
   }
-  void run()
+  void run(int deg)
   {
 	int ret = 0;
 	ret = servo_.torque_on();
@@ -30,8 +31,7 @@ public:
 	  {
 		std::cout << "Error : fail to torque on" << std::endl;
 	  }
-	short deg = 1000;
-	unsigned short speed = 100; // 小さいほうが早い
+	unsigned short speed = 1; // 小さいほうが早い
     ret = servo_.move( deg, speed);
 	if(ret < 0)
 	  {
@@ -73,6 +73,8 @@ int main(int argc, char **argv)
   ioctl(servo_id, TCSETS, &newtio);
   
   FutabaDriver futaba_driver(servo_id);
-  futaba_driver.run();
+  for(int i = 0; i < 10; i++){
+	futaba_driver.run(short(500*pow(-1, i)));
+  }
   return 0;
 }
